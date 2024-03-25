@@ -5,4 +5,9 @@
     <string name="title_tab_cart">Your Cart</string>
     <string name="title_tab_profile">Profile</string>
     <string name="title_tab_home">For You</string>
+    <string name="text_banner">Toko Komputer Serba ada</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="delivered_to">Delivered to</string>
+    <string name="jalan_depok_timur">Jalan Depok Timur</string>
+    <string name="you_might_looking_for">You might looking for</string>
 </resources>
