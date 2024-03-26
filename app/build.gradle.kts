@@ -1,7 +1,9 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.ksp)
     id("kotlin-parcelize")
+
 }
 
 android {
@@ -53,6 +55,10 @@ dependencies {
     implementation(libs.fragment.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
+    implementation(libs.coroutine.core)
+    implementation(libs.coroutine.android)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -19,5 +19,6 @@
     <string name="text_email">hermas.yuda@gmail.com</string>
     <string name="text_edit">Edit</string>
     <string name="text_save">Save</string>
+    <string name="text_hint_notes">Notes</string>
 
 </resources>
