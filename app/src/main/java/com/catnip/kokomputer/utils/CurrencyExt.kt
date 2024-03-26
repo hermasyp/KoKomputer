@@ -17,4 +17,4 @@ fun Double?.doubleToCurrency(language: String, country: String): String? {
         null
     }
 }
-fun Double?.toIndonesianFormat() = this.doubleToCurrency("in","ID")
+fun Double?.toDollarFormat() = this.doubleToCurrency("en","US")

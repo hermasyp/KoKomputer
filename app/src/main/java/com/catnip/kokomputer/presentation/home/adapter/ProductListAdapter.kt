@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.catnip.kokomputer.data.model.Product
 import com.catnip.kokomputer.databinding.ItemProductBinding
-import com.catnip.kokomputer.utils.toIndonesianFormat
+import com.catnip.kokomputer.utils.toDollarFormat
 
 /**
 Written with love by Muhammad Hermas Yuda Pamungkas
@@ -63,7 +63,7 @@ class ProductListAdapter(private val itemClick: (Product) -> Unit) :
                     crossfade(true)
                 }
                 binding.tvProductName.text = item.name
-                binding.tvProductPrice.text = item.price.toIndonesianFormat()
+                binding.tvProductPrice.text = item.price.toDollarFormat()
                 itemView.setOnClickListener { itemClick(this) }
             }
         }

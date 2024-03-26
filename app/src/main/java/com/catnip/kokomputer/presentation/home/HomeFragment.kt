@@ -18,6 +18,7 @@ import com.catnip.kokomputer.data.repository.ProductRepository
 import com.catnip.kokomputer.data.repository.ProductRepositoryImpl
 import com.catnip.kokomputer.databinding.FragmentCartBinding
 import com.catnip.kokomputer.databinding.FragmentHomeBinding
+import com.catnip.kokomputer.presentation.detailproduct.DetailProductActivity
 import com.catnip.kokomputer.presentation.home.adapter.CategoryListAdapter
 import com.catnip.kokomputer.presentation.home.adapter.ProductListAdapter
 import com.catnip.kokomputer.utils.GenericViewModelFactory
@@ -43,7 +44,7 @@ class HomeFragment : Fragment() {
 
     private val productAdapter: ProductListAdapter by lazy {
         ProductListAdapter {
-
+            DetailProductActivity.startActivity(requireContext(), it)
         }
     }
 
