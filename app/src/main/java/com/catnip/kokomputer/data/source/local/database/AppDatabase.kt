@@ -1,11 +1,11 @@
-package com.catnip.kokomputer.data.source.local
+package com.catnip.kokomputer.data.source.local.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.catnip.kokomputer.data.source.local.dao.CartDao
-import com.catnip.kokomputer.data.source.local.entity.CartEntity
+import com.catnip.kokomputer.data.source.local.database.dao.CartDao
+import com.catnip.kokomputer.data.source.local.database.entity.CartEntity
 
 /**
 Written with love by Muhammad Hermas Yuda Pamungkas

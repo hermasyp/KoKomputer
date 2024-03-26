@@ -1,7 +1,7 @@
 package com.catnip.kokomputer.data.datasource.cart
 
-import com.catnip.kokomputer.data.source.local.dao.CartDao
-import com.catnip.kokomputer.data.source.local.entity.CartEntity
+import com.catnip.kokomputer.data.source.local.database.dao.CartDao
+import com.catnip.kokomputer.data.source.local.database.entity.CartEntity
 import kotlinx.coroutines.flow.Flow
 
 /**

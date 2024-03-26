@@ -1,4 +1,4 @@
-package com.catnip.kokomputer.data.source.local.entity
+package com.catnip.kokomputer.data.source.local.database.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

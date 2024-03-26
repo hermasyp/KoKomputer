@@ -1,7 +1,7 @@
 package com.catnip.kokomputer
 
 import android.app.Application
-import com.catnip.kokomputer.data.source.local.AppDatabase
+import com.catnip.kokomputer.data.source.local.database.AppDatabase
 
 /**
 Written with love by Muhammad Hermas Yuda Pamungkas

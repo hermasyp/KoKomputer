@@ -1,4 +1,4 @@
-package com.catnip.kokomputer.data.source.local.dao
+package com.catnip.kokomputer.data.source.local.database.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.catnip.kokomputer.data.source.local.entity.CartEntity
+import com.catnip.kokomputer.data.source.local.database.entity.CartEntity
 import kotlinx.coroutines.flow.Flow
 
 /**
