@@ -20,5 +20,8 @@
     <string name="text_edit">Edit</string>
     <string name="text_save">Save</string>
     <string name="text_hint_notes">Notes</string>
+    <string name="text_checkout">Checkout</string>
+    <string name="text_total_price">Total Price</string>
+    <string name="text_title_your_cart">Your Cart</string>
 
 </resources>
