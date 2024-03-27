@@ -10,7 +10,7 @@ Github : https://github.com/hermasyp
  **/
 @Parcelize
 data class Product(
-    var id: String = UUID.randomUUID().toString(),
+    var id: String? = UUID.randomUUID().toString(),
     var name: String,
     var imgUrl: String,
     var price: Double,
