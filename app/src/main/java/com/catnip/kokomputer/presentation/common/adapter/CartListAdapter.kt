@@ -13,6 +13,7 @@ import com.catnip.kokomputer.data.model.Cart
 import com.catnip.kokomputer.databinding.ItemCartProductBinding
 import com.catnip.kokomputer.databinding.ItemCartProductOrderBinding
 import com.catnip.kokomputer.utils.doneEditing
+import com.catnip.kokomputer.utils.toDollarFormat
 
 /**
 Written with love by Muhammad Hermas Yuda Pamungkas
@@ -79,7 +80,7 @@ class CartViewHolder(
             }
             tvProductCount.text = item.itemQuantity.toString()
             tvProductName.text = item.productName
-            tvProductPrice.text = (item.itemQuantity * item.productPrice).toString()
+            tvProductPrice.text = (item.itemQuantity * item.productPrice).toDollarFormat()
         }
     }
 
@@ -122,7 +123,7 @@ class CartOrderViewHolder(
                     item.itemQuantity.toString()
                 )
             tvProductName.text = item.productName
-            tvProductPrice.text = (item.itemQuantity * item.productPrice).toString()
+            tvProductPrice.text =  item.productPrice.toDollarFormat()
         }
     }
 

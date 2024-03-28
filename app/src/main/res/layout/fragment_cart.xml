@@ -35,6 +35,8 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/cv_section_checkout"
         app:layout_constraintTop_toBottomOf="@+id/ll_action_bar"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp"
         tools:listitem="@layout/item_cart_product" />
 
     <include
