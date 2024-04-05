@@ -1,16 +1,26 @@
 package com.catnip.kokomputer.data.repository
 
 import com.catnip.kokomputer.data.datasource.product.ProductDataSource
+import com.catnip.kokomputer.data.mapper.toProducts
 import com.catnip.kokomputer.data.model.Product
+import com.catnip.kokomputer.utils.ResultWrapper
+import com.catnip.kokomputer.utils.proceedFlow
+import kotlinx.coroutines.flow.Flow
 
 /**
 Written with love by Muhammad Hermas Yuda Pamungkas
 Github : https://github.com/hermasyp
  **/
 interface ProductRepository {
-    fun getProducts(): List<Product>
+    fun getProducts(categorySlug : String? = null): Flow<ResultWrapper<List<Product>>>
 }
 
-class ProductRepositoryImpl(private val dataSource: ProductDataSource) : ProductRepository {
-    override fun getProducts(): List<Product> = dataSource.getProducts()
+class ProductRepositoryImpl(
+    private val dataSource: ProductDataSource
+) : ProductRepository {
+    override fun getProducts(categorySlug : String?): Flow<ResultWrapper<List<Product>>> {
+        return proceedFlow {
+            dataSource.getProducts(categorySlug).data.toProducts()
+        }
+    }
 }

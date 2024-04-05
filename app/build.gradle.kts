@@ -38,6 +38,24 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
+    }
+    flavorDimensions += "env"
+    productFlavors {
+        create("production") {
+            buildConfigField(
+                type = "String",
+                name = "BASE_URL",
+                value = "\"https://5e892715-c531-45ac-9582-f12401c4bcf4.mock.pstmn.io/\""
+            )
+        }
+        create("integration") {
+            buildConfigField(
+                type = "String",
+                name = "BASE_URL",
+                value = "\"https://5e892715-c531-45ac-9582-f12401c4bcf4.mock.pstmn.io/\""
+            )
+        }
     }
 }
 
@@ -59,6 +77,9 @@ dependencies {
     ksp(libs.room.compiler)
     implementation(libs.coroutine.core)
     implementation(libs.coroutine.android)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson)
+    implementation(libs.okhttp)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
