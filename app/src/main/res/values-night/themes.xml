@@ -29,4 +29,7 @@
         <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
         <item name="fontFamily">@font/font_jakarta</item>
     </style>
+    <style name="iconGridColor">
+        <item name="tint">@color/white</item>
+    </style>
 </resources>

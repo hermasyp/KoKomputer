@@ -19,6 +19,7 @@ ksp = "1.9.10-1.0.13"
 coroutine = "1.7.3"
 retrofit = "2.9.0"
 okhttp = "4.11.0"
+annotation = "1.7.1"
 
 
 [libraries]
@@ -57,6 +58,7 @@ coroutine-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutine
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
 
 
 [plugins]
