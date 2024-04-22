@@ -26,7 +26,6 @@ fun CartEntity?.toCart() = Cart(
     productPrice = this?.productPrice ?: 0.0,
     productImgUrl = this?.productImgUrl.orEmpty(),
     itemNotes = this?.itemNotes
-
 )
 
 fun List<CartEntity?>.toCartList() = this.map { it.toCart() }
