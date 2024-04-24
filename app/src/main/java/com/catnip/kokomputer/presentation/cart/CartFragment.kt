@@ -2,10 +2,12 @@ package com.catnip.kokomputer.presentation.cart
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.catnip.kokomputer.R
@@ -14,6 +16,7 @@ import com.catnip.kokomputer.data.datasource.cart.CartDatabaseDataSource
 import com.catnip.kokomputer.data.model.Cart
 import com.catnip.kokomputer.data.repository.CartRepository
 import com.catnip.kokomputer.data.repository.CartRepositoryImpl
+import com.catnip.kokomputer.data.source.FirebaseAuth
 import com.catnip.kokomputer.data.source.local.database.AppDatabase
 import com.catnip.kokomputer.databinding.FragmentCartBinding
 import com.catnip.kokomputer.presentation.checkout.CheckoutActivity
@@ -23,14 +26,17 @@ import com.catnip.kokomputer.utils.GenericViewModelFactory
 import com.catnip.kokomputer.utils.hideKeyboard
 import com.catnip.kokomputer.utils.proceedWhen
 import com.catnip.kokomputer.utils.toDollarFormat
+import org.koin.android.ext.android.inject
 
 
 class CartFragment : Fragment() {
 
     private lateinit var binding: FragmentCartBinding
 
+    private val auth : FirebaseAuth by inject()
+
     private val viewModel: CartViewModel by viewModels {
-        val db = AppDatabase.getInstance(requireContext())
+        val db = AppDatabase.createInstance(requireContext())
         val ds: CartDataSource = CartDatabaseDataSource(db.cartDao())
         val rp: CartRepository = CartRepositoryImpl(ds)
         GenericViewModelFactory.create(CartViewModel(rp))
@@ -72,6 +78,11 @@ class CartFragment : Fragment() {
         setupList()
         observeData()
         setClickListeners()
+        getUser()
+    }
+    private fun getUser() {
+        val user = auth.getCurrentUser()
+        Log.d("AUTH", "getUser: FROM CART ${auth.hashCode()} user hash = ${user.hashCode()}")
     }
 
     private fun setClickListeners() {

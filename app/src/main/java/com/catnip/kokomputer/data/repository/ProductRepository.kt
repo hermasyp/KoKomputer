@@ -23,6 +23,7 @@ interface ProductRepository {
 class ProductRepositoryImpl(
     private val dataSource: ProductDataSource
 ) : ProductRepository {
+
     override fun getProducts(categorySlug: String?): Flow<ResultWrapper<List<Product>>> {
         return proceedFlow {
             dataSource.getProducts(categorySlug).data.toProducts()

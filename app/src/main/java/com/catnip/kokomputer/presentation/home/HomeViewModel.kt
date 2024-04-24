@@ -16,6 +16,7 @@ class HomeViewModel(
     private val productRepository: ProductRepository,
     private val userRepository: UserRepository
 ) : ViewModel() {
+
     fun getProducts(categorySlug: String? = null) =
         productRepository.getProducts(categorySlug).asLiveData(Dispatchers.IO)
 

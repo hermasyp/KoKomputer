@@ -1,16 +1,11 @@
 package com.catnip.kokomputer.presentation.checkout
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
 import com.catnip.kokomputer.R
 import com.catnip.kokomputer.data.datasource.cart.CartDataSource
 import com.catnip.kokomputer.data.datasource.cart.CartDatabaseDataSource
@@ -23,7 +18,6 @@ import com.catnip.kokomputer.data.repository.ProductRepositoryImpl
 import com.catnip.kokomputer.data.source.local.database.AppDatabase
 import com.catnip.kokomputer.data.source.network.services.KoKomputerApiService
 import com.catnip.kokomputer.databinding.ActivityCheckoutBinding
-import com.catnip.kokomputer.presentation.cart.CartViewModel
 import com.catnip.kokomputer.presentation.checkout.adapter.PriceListAdapter
 import com.catnip.kokomputer.presentation.common.adapter.CartListAdapter
 import com.catnip.kokomputer.utils.GenericViewModelFactory
@@ -37,7 +31,7 @@ class CheckoutActivity : AppCompatActivity() {
     }
 
     private val viewModel: CheckoutViewModel by viewModels {
-        val db = AppDatabase.getInstance(this)
+        val db = AppDatabase.createInstance(this)
         val s = KoKomputerApiService.invoke()
         val pds: ProductDataSource = ProductApiDataSource(s)
         val pr: ProductRepository = ProductRepositoryImpl(pds)

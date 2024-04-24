@@ -11,7 +11,7 @@ interface UserDataSource {
     fun setUsingDarkMode(isUsingDarkMode: Boolean)
 }
 
-class UserDataSourceImpl(private val userPreference: UserPreference) : UserDataSource {
+class UserPreferenceDataSource(private val userPreference: UserPreference) : UserDataSource {
     override fun isUsingDarkMode(): Boolean {
         return userPreference.isUsingDarkMode()
     }

@@ -1,65 +1,38 @@
 package com.catnip.kokomputer.presentation.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import com.catnip.kokomputer.data.datasource.category.CategoryApiDataSource
-import com.catnip.kokomputer.data.datasource.category.CategoryDataSource
-import com.catnip.kokomputer.data.datasource.product.ProductApiDataSource
-import com.catnip.kokomputer.data.datasource.product.ProductDataSource
-import com.catnip.kokomputer.data.datasource.user.UserDataSource
-import com.catnip.kokomputer.data.datasource.user.UserDataSourceImpl
+import androidx.fragment.app.Fragment
 import com.catnip.kokomputer.data.model.Category
 import com.catnip.kokomputer.data.model.Product
-import com.catnip.kokomputer.data.repository.CategoryRepository
-import com.catnip.kokomputer.data.repository.CategoryRepositoryImpl
-import com.catnip.kokomputer.data.repository.ProductRepository
-import com.catnip.kokomputer.data.repository.ProductRepositoryImpl
-import com.catnip.kokomputer.data.repository.UserRepository
-import com.catnip.kokomputer.data.repository.UserRepositoryImpl
-import com.catnip.kokomputer.data.source.local.pref.UserPreference
-import com.catnip.kokomputer.data.source.local.pref.UserPreferenceImpl
-import com.catnip.kokomputer.data.source.network.services.KoKomputerApiService
+import com.catnip.kokomputer.data.source.FirebaseAuth
 import com.catnip.kokomputer.databinding.FragmentHomeBinding
 import com.catnip.kokomputer.presentation.detailproduct.DetailProductActivity
 import com.catnip.kokomputer.presentation.home.adapter.CategoryListAdapter
 import com.catnip.kokomputer.presentation.home.adapter.ProductListAdapter
 import com.catnip.kokomputer.presentation.main.MainActivity
-import com.catnip.kokomputer.presentation.main.MainViewModel
-import com.catnip.kokomputer.utils.GenericViewModelFactory
 import com.catnip.kokomputer.utils.GridSpacingItemDecoration
 import com.catnip.kokomputer.utils.proceedWhen
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
 
-    private val viewModel: HomeViewModel by viewModels {
-        val service = KoKomputerApiService.invoke()
-        val userPreference: UserPreference = UserPreferenceImpl(requireContext())
-        val userDataSource: UserDataSource = UserDataSourceImpl(userPreference)
-        val userRepository: UserRepository = UserRepositoryImpl(userDataSource)
-        val productDataSource: ProductDataSource = ProductApiDataSource(service)
-        val productRepository: ProductRepository = ProductRepositoryImpl(productDataSource)
-        val categoryDataSource: CategoryDataSource = CategoryApiDataSource(service)
-        val categoryRepository: CategoryRepository = CategoryRepositoryImpl(categoryDataSource)
-        GenericViewModelFactory.create(
-            HomeViewModel(
-                categoryRepository,
-                productRepository,
-                userRepository
-            )
-        )
+    private val homeViewModel: HomeViewModel by viewModel()
+
+    private val auth: FirebaseAuth by inject<FirebaseAuth>()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        auth.doLogin()
+
     }
-
-    private val mainViewModel : MainViewModel by activityViewModels()
-
     private val categoryAdapter: CategoryListAdapter by lazy {
         CategoryListAdapter {
             // when category clicked
@@ -68,7 +41,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun applyUiMode() {
-        val isUsingDarkMode = viewModel.isUsingDarkMode()
+        val isUsingDarkMode = homeViewModel.isUsingDarkMode()
         AppCompatDelegate.setDefaultNightMode(
             if (isUsingDarkMode)
                 AppCompatDelegate.MODE_NIGHT_YES
@@ -80,7 +53,7 @@ class HomeFragment : Fragment() {
 
     private fun setSwitchListener() {
         binding.swDarkMode.setOnCheckedChangeListener { btn, isChecked ->
-            viewModel.setUsingDarkMode(isChecked)
+            homeViewModel.setUsingDarkMode(isChecked)
             applyUiMode()
         }
     }
@@ -111,6 +84,13 @@ class HomeFragment : Fragment() {
         binding.layoutHeader.ivSettings.setOnClickListener {
             navigateToProfile()
         }
+        getUser()
+    }
+
+    private fun getUser() {
+
+        val user = auth.getCurrentUser()
+        Log.d("AUTH", "getUser: FROM HOME ${auth.hashCode()} user hash = ${user.hashCode()}")
     }
 
     private fun setupListCategory() {
@@ -128,7 +108,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun getCategoryData() {
-        viewModel.getCategories().observe(viewLifecycleOwner) {
+        homeViewModel.getCategories().observe(viewLifecycleOwner) {
             it.proceedWhen(
                 doOnSuccess = {
                     it.payload?.let { data -> bindCategoryList(data) }
@@ -138,7 +118,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun getProductData(categorySlug: String? = null) {
-        viewModel.getProducts(categorySlug).observe(viewLifecycleOwner) {
+        homeViewModel.getProducts(categorySlug).observe(viewLifecycleOwner) {
             it.proceedWhen(
                 doOnSuccess = {
                     it.payload?.let { data -> bindProductList(data) }
@@ -156,7 +136,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun navigateToProfile() {
-        Toast.makeText(requireContext(), mainViewModel.myName, Toast.LENGTH_SHORT).show()
         if (requireActivity() !is MainActivity) return
         (requireActivity() as MainActivity).navigateToTabProfile()
     }

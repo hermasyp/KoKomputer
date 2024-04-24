@@ -18,18 +18,15 @@ import com.catnip.kokomputer.databinding.ActivityDetailProductBinding
 import com.catnip.kokomputer.utils.GenericViewModelFactory
 import com.catnip.kokomputer.utils.proceedWhen
 import com.catnip.kokomputer.utils.toDollarFormat
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class DetailProductActivity : AppCompatActivity() {
     private val binding: ActivityDetailProductBinding by lazy {
         ActivityDetailProductBinding.inflate(layoutInflater)
     }
-    private val viewModel: DetailProductViewModel by viewModels {
-        val db = AppDatabase.getInstance(this)
-        val ds: CartDataSource = CartDatabaseDataSource(db.cartDao())
-        val rp: CartRepository = CartRepositoryImpl(ds)
-        GenericViewModelFactory.create(
-            DetailProductViewModel(intent?.extras, rp)
-        )
+    private val viewModel: DetailProductViewModel by viewModel {
+        parametersOf(intent.extras)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
