@@ -5,7 +5,6 @@ Written with love by Muhammad Hermas Yuda Pamungkas
 Github : https://github.com/hermasyp
  **/
 interface FirebaseAuth {
-
     fun doLogin()
 
     fun getCurrentUser(): User?
@@ -27,6 +26,4 @@ class FirebaseAuthImpl() : FirebaseAuth {
     }
 
     override fun getCurrentUser(): User? = user
-
 }
-

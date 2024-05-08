@@ -14,9 +14,10 @@ fun ProductItemResponse?.toProduct() =
         rating = this?.rating ?: 0.0,
         price = this?.price ?: 0.0,
         imgUrl = this?.imgUrl.orEmpty(),
-        desc = this?.desc.orEmpty()
+        desc = this?.desc.orEmpty(),
     )
 
-fun Collection<ProductItemResponse>?.toProducts() = this?.map {
-    it.toProduct()
-} ?: listOf()
+fun Collection<ProductItemResponse>?.toProducts() =
+    this?.map {
+        it.toProduct()
+    } ?: listOf()

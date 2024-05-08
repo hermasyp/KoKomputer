@@ -14,8 +14,7 @@ fun CategoryItemResponse?.toCategory() =
         name = this?.name.orEmpty(),
         imgUrl = this?.imgUrl.orEmpty(),
         slug = this?.slug.orEmpty(),
-        categoryDesc = ""
+        categoryDesc = "",
     )
 
-fun Collection<CategoryItemResponse>?.toCategories() =
-    this?.map { it.toCategory() } ?: listOf()
+fun Collection<CategoryItemResponse>?.toCategories() = this?.map { it.toCategory() } ?: listOf()

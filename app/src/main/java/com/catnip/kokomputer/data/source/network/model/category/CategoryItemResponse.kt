@@ -1,8 +1,7 @@
 package com.catnip.kokomputer.data.source.network.model.category
 
-
-import com.google.gson.annotations.SerializedName
 import androidx.annotation.Keep
+import com.google.gson.annotations.SerializedName
 
 @Keep
 data class CategoryItemResponse(
@@ -13,5 +12,5 @@ data class CategoryItemResponse(
     @SerializedName("name")
     val name: String?,
     @SerializedName("slug")
-    val slug: String?
+    val slug: String?,
 )

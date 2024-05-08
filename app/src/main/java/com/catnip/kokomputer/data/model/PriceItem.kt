@@ -6,5 +6,5 @@ Github : https://github.com/hermasyp
  **/
 data class PriceItem(
     val name: String,
-    val total: Double
+    val total: Double,
 )

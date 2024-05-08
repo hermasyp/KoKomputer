@@ -1,7 +1,6 @@
 package com.catnip.kokomputer.data.source.local.pref
 
 import android.content.SharedPreferences
-import com.catnip.kokomputer.utils.SharedPreferenceUtils
 import com.catnip.kokomputer.utils.SharedPreferenceUtils.set
 
 /**
@@ -10,6 +9,7 @@ Github : https://github.com/hermasyp
  **/
 interface UserPreference {
     fun isUsingDarkMode(): Boolean
+
     fun setUsingDarkMode(isUsingDarkMode: Boolean)
 }
 

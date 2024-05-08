@@ -10,6 +10,6 @@ Github : https://github.com/hermasyp
  **/
 interface ProductDataSource {
     suspend fun getProducts(categorySlug: String? = null): ProductResponse
-    suspend fun createOrder(payload : CheckoutRequestPayload) : CheckoutResponse
-}
 
+    suspend fun createOrder(payload: CheckoutRequestPayload): CheckoutResponse
+}

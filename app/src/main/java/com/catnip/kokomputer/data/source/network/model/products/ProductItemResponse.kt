@@ -8,15 +8,15 @@ Github : https://github.com/hermasyp
  **/
 data class ProductItemResponse(
     @SerializedName("id")
-    val id : String?,
+    val id: String?,
     @SerializedName("name")
-    val name : String?,
+    val name: String?,
     @SerializedName("img_url")
-    val imgUrl : String?,
+    val imgUrl: String?,
     @SerializedName("price")
-    val price : Double?,
+    val price: Double?,
     @SerializedName("desc")
-    val desc : String?,
+    val desc: String?,
     @SerializedName("rating")
-    val rating : Double?,
+    val rating: Double?,
 )

@@ -11,5 +11,5 @@ data class Category(
     var name: String,
     var imgUrl: String,
     var slug: String,
-    var categoryDesc: String
+    var categoryDesc: String,
 )

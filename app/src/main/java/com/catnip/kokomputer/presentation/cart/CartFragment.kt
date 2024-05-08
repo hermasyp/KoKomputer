@@ -3,12 +3,11 @@ package com.catnip.kokomputer.presentation.cart
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.catnip.kokomputer.R
 import com.catnip.kokomputer.data.datasource.cart.CartDataSource
@@ -28,12 +27,10 @@ import com.catnip.kokomputer.utils.proceedWhen
 import com.catnip.kokomputer.utils.toDollarFormat
 import org.koin.android.ext.android.inject
 
-
 class CartFragment : Fragment() {
-
     private lateinit var binding: FragmentCartBinding
 
-    private val auth : FirebaseAuth by inject()
+    private val auth: FirebaseAuth by inject()
 
     private val viewModel: CartViewModel by viewModels {
         val db = AppDatabase.createInstance(requireContext())
@@ -43,29 +40,32 @@ class CartFragment : Fragment() {
     }
 
     private val adapter: CartListAdapter by lazy {
-        CartListAdapter(object : CartListener {
-            override fun onPlusTotalItemCartClicked(cart: Cart) {
-                viewModel.increaseCart(cart)
-            }
+        CartListAdapter(
+            object : CartListener {
+                override fun onPlusTotalItemCartClicked(cart: Cart) {
+                    viewModel.increaseCart(cart)
+                }
 
-            override fun onMinusTotalItemCartClicked(cart: Cart) {
-                viewModel.decreaseCart(cart)
-            }
+                override fun onMinusTotalItemCartClicked(cart: Cart) {
+                    viewModel.decreaseCart(cart)
+                }
 
-            override fun onRemoveCartClicked(cart: Cart) {
-                viewModel.removeCart(cart)
-            }
+                override fun onRemoveCartClicked(cart: Cart) {
+                    viewModel.removeCart(cart)
+                }
 
-            override fun onUserDoneEditingNotes(cart: Cart) {
-                viewModel.setCartNotes(cart)
-                hideKeyboard()
-            }
-        })
+                override fun onUserDoneEditingNotes(cart: Cart) {
+                    viewModel.setCartNotes(cart)
+                    hideKeyboard()
+                }
+            },
+        )
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         // Inflate the layout for this fragment
 
@@ -73,13 +73,17 @@ class CartFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         setupList()
         observeData()
         setClickListeners()
         getUser()
     }
+
     private fun getUser() {
         val user = auth.getCurrentUser()
         Log.d("AUTH", "getUser: FROM CART ${auth.hashCode()} user hash = ${user.hashCode()}")
@@ -106,7 +110,7 @@ class CartFragment : Fragment() {
                     binding.layoutState.tvError.isVisible = false
                     binding.rvCart.isVisible = true
                     result.payload?.let { (carts, totalPrice) ->
-                        //set list cart data
+                        // set list cart data
                         adapter.submitData(carts)
                         binding.tvTotalPrice.text = totalPrice.toDollarFormat()
                     }
@@ -127,7 +131,7 @@ class CartFragment : Fragment() {
                     result.payload?.let { (carts, totalPrice) ->
                         binding.tvTotalPrice.text = totalPrice.toDollarFormat()
                     }
-                }
+                },
             )
         }
     }

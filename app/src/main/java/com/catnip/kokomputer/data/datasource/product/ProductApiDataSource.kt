@@ -10,7 +10,7 @@ Written with love by Muhammad Hermas Yuda Pamungkas
 Github : https://github.com/hermasyp
  **/
 class ProductApiDataSource(
-    private val service: KoKomputerApiService
+    private val service: KoKomputerApiService,
 ) : ProductDataSource {
     override suspend fun getProducts(categorySlug: String?): ProductResponse {
         return service.getProducts(categorySlug)

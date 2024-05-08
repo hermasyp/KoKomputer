@@ -25,7 +25,6 @@ import com.catnip.kokomputer.utils.proceedWhen
 import com.catnip.kokomputer.utils.toDollarFormat
 
 class CheckoutActivity : AppCompatActivity() {
-
     private val binding: ActivityCheckoutBinding by lazy {
         ActivityCheckoutBinding.inflate(layoutInflater)
     }
@@ -45,7 +44,6 @@ class CheckoutActivity : AppCompatActivity() {
     }
     private val priceItemAdapter: PriceListAdapter by lazy {
         PriceListAdapter {
-
         }
     }
 
@@ -67,13 +65,15 @@ class CheckoutActivity : AppCompatActivity() {
     }
 
     private fun showSuccessDialog() {
-        val dialog = AlertDialog.Builder(this)
-            .setTitle(getString(R.string.create_order_success))
-            .setPositiveButton(getString(R.string.close)) { _, _ ->
-                finish()
-            }
+        val dialog =
+            AlertDialog.Builder(this)
+                .setTitle(getString(R.string.create_order_success))
+                .setPositiveButton(getString(R.string.close)) { _, _ ->
+                    finish()
+                }
         dialog.show()
     }
+
     private fun doCheckout() {
         viewModel.checkoutCart().observe(this) {
             it.proceedWhen(
@@ -98,15 +98,15 @@ class CheckoutActivity : AppCompatActivity() {
                     binding.layoutState.pbLoading.isVisible = false
                     binding.layoutContent.root.isVisible = false
                     binding.layoutContent.rvCart.isVisible = false
-                    Toast.makeText(this,
+                    Toast.makeText(
+                        this,
                         getString(R.string.error_checkout),
-                        Toast.LENGTH_SHORT).show()
-                }
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                },
             )
         }
     }
-
-
 
     private fun setupList() {
         binding.layoutContent.rvCart.adapter = adapter

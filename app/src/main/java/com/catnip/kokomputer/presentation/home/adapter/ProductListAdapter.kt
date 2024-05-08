@@ -16,37 +16,42 @@ Github : https://github.com/hermasyp
  **/
 class ProductListAdapter(private val itemClick: (Product) -> Unit) :
     RecyclerView.Adapter<ProductListAdapter.ItemProductViewHolder>() {
-
     private val dataDiffer =
         AsyncListDiffer(
             this,
             object : DiffUtil.ItemCallback<Product>() {
                 override fun areItemsTheSame(
                     oldItem: Product,
-                    newItem: Product
+                    newItem: Product,
                 ): Boolean {
                     return oldItem.id == newItem.id
                 }
 
                 override fun areContentsTheSame(
                     oldItem: Product,
-                    newItem: Product
+                    newItem: Product,
                 ): Boolean {
                     return oldItem.hashCode() == newItem.hashCode()
                 }
-            }
+            },
         )
 
     fun submitData(data: List<Product>) {
         dataDiffer.submitList(data)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemProductViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): ItemProductViewHolder {
         val binding = ItemProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ItemProductViewHolder(binding, itemClick)
     }
 
-    override fun onBindViewHolder(holder: ItemProductViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: ItemProductViewHolder,
+        position: Int,
+    ) {
         holder.bindView(dataDiffer.currentList[position])
     }
 
@@ -54,9 +59,8 @@ class ProductListAdapter(private val itemClick: (Product) -> Unit) :
 
     class ItemProductViewHolder(
         private val binding: ItemProductBinding,
-        val itemClick: (Product) -> Unit
+        val itemClick: (Product) -> Unit,
     ) : RecyclerView.ViewHolder(binding.root) {
-
         fun bindView(item: Product) {
             with(item) {
                 binding.ivProductImage.load(item.imgUrl) {

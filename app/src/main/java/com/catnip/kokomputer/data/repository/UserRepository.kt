@@ -8,11 +8,11 @@ Github : https://github.com/hermasyp
  **/
 interface UserRepository {
     fun isUsingDarkMode(): Boolean
+
     fun setUsingDarkMode(isUsingDarkMode: Boolean)
 }
 
 class UserRepositoryImpl(private val dataSource: UserDataSource) : UserRepository {
-    
     override fun isUsingDarkMode(): Boolean {
         return dataSource.isUsingDarkMode()
     }

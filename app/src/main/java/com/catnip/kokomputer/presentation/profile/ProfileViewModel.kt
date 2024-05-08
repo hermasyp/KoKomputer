@@ -9,15 +9,15 @@ Written with love by Muhammad Hermas Yuda Pamungkas
 Github : https://github.com/hermasyp
  **/
 class ProfileViewModel : ViewModel() {
-
-    val profileData = MutableLiveData(
-        Profile(
-            name = "Muhammad Hermas Yuda P",
-            username = "hermasyp",
-            email = "hermas.yuda@gmail.com",
-            profileImg = "https://avatars.githubusercontent.com/u/21256595?v=4"
+    val profileData =
+        MutableLiveData(
+            Profile(
+                name = "Muhammad Hermas Yuda P",
+                username = "hermasyp",
+                email = "hermas.yuda@gmail.com",
+                profileImg = "https://avatars.githubusercontent.com/u/21256595?v=4",
+            ),
         )
-    )
 
     val isEditMode = MutableLiveData(false)
 

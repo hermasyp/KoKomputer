@@ -26,7 +26,6 @@ sealed class ResultWrapper<T>(
     class Idle<T>(data: T? = null) : ResultWrapper<T>(data)
 }
 
-
 fun <T> ResultWrapper<T>.proceedWhen(
     doOnSuccess: ((resource: ResultWrapper<T>) -> Unit)? = null,
     doOnError: ((resource: ResultWrapper<T>) -> Unit)? = null,
@@ -93,7 +92,7 @@ fun <T> proceedFlow(block: suspend () -> T): Flow<ResultWrapper<T>> {
                 ResultWrapper.Empty(result)
             } else {
                 ResultWrapper.Success(result)
-            }
+            },
         )
     }.catch { e ->
         emit(ResultWrapper.Error(exception = Exception(e)))

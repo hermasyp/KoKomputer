@@ -14,14 +14,14 @@ Github : https://github.com/hermasyp
  **/
 class CheckoutViewModel(
     private val cartRepository: CartRepository,
-    private val productRepository: ProductRepository
+    private val productRepository: ProductRepository,
 ) : ViewModel() {
-
     val checkoutData = cartRepository.getCheckoutData().asLiveData(Dispatchers.IO)
 
-    fun checkoutCart() = productRepository.createOrder(
-        checkoutData.value?.payload?.first.orEmpty()
-    ).asLiveData(Dispatchers.IO)
+    fun checkoutCart() =
+        productRepository.createOrder(
+            checkoutData.value?.payload?.first.orEmpty(),
+        ).asLiveData(Dispatchers.IO)
 
     fun deleteAllCart() {
         viewModelScope.launch {

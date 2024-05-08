@@ -8,7 +8,6 @@ import com.catnip.kokomputer.presentation.login.data.model.LoggedInUser
  */
 
 class LoginRepository(val dataSource: LoginDataSource) {
-
     // in-memory cache of the loggedInUser object
     var user: LoggedInUser? = null
         private set
@@ -27,7 +26,10 @@ class LoginRepository(val dataSource: LoginDataSource) {
         dataSource.logout()
     }
 
-    fun login(username: String, password: String): Result<LoggedInUser> {
+    fun login(
+        username: String,
+        password: String,
+    ): Result<LoggedInUser> {
         // handle login
         val result = dataSource.login(username, password)
 

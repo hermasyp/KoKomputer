@@ -8,7 +8,7 @@ Written with love by Muhammad Hermas Yuda Pamungkas
 Github : https://github.com/hermasyp
  **/
 class CategoryApiDataSource(
-    private val service: KoKomputerApiService
+    private val service: KoKomputerApiService,
 ) : CategoryDataSource {
     override suspend fun getCategories(): CategoriesResponse {
         return service.getCategories()

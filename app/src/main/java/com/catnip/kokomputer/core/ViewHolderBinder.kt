@@ -1,4 +1,4 @@
-package com.catnip.egroceries.core
+package com.catnip.kokomputer.core
 
 /**
 Written with love by Muhammad Hermas Yuda Pamungkas

@@ -18,18 +18,19 @@ Github : https://github.com/hermasyp
  **/
 class DetailProductViewModel(
     private val extras: Bundle?,
-    private val cartRepository: CartRepository
+    private val cartRepository: CartRepository,
 ) : ViewModel() {
-
     val product = extras?.getParcelable<Product>(DetailProductActivity.EXTRA_PRODUCT)
 
-    val productCountLiveData = MutableLiveData(0).apply {
-        postValue(0)
-    }
+    val productCountLiveData =
+        MutableLiveData(0).apply {
+            postValue(0)
+        }
 
-    val priceLiveData = MutableLiveData<Double>().apply {
-        postValue(0.0)
-    }
+    val priceLiveData =
+        MutableLiveData<Double>().apply {
+            postValue(0.0)
+        }
 
     fun add() {
         val count = (productCountLiveData.value ?: 0) + 1

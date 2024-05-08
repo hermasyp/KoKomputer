@@ -10,14 +10,14 @@ import com.catnip.kokomputer.presentation.login.data.LoginRepository
  * Required given LoginViewModel has a non-empty constructor
  */
 class LoginViewModelFactory : ViewModelProvider.Factory {
-
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
             return LoginViewModel(
-                loginRepository = LoginRepository(
-                    dataSource = LoginDataSource()
-                )
+                loginRepository =
+                    LoginRepository(
+                        dataSource = LoginDataSource(),
+                    ),
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

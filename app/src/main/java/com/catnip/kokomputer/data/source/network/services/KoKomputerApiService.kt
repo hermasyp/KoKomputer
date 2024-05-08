@@ -19,28 +19,33 @@ Written with love by Muhammad Hermas Yuda Pamungkas
 Github : https://github.com/hermasyp
  **/
 interface KoKomputerApiService {
-
     @GET("categories")
     suspend fun getCategories(): CategoriesResponse
 
     @GET("products")
-    suspend fun getProducts(@Query("category") category: String? = null): ProductResponse
+    suspend fun getProducts(
+        @Query("category") category: String? = null,
+    ): ProductResponse
 
     @POST("order")
-    suspend fun createOrder(@Body payload: CheckoutRequestPayload): CheckoutResponse
+    suspend fun createOrder(
+        @Body payload: CheckoutRequestPayload,
+    ): CheckoutResponse
 
     companion object {
         @JvmStatic
         operator fun invoke(): KoKomputerApiService {
-            val okHttpClient = OkHttpClient.Builder()
-                .connectTimeout(120, TimeUnit.SECONDS)
-                .readTimeout(120, TimeUnit.SECONDS)
-                .build()
-            val retrofit = Retrofit.Builder()
-                .baseUrl(BuildConfig.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(okHttpClient)
-                .build()
+            val okHttpClient =
+                OkHttpClient.Builder()
+                    .connectTimeout(120, TimeUnit.SECONDS)
+                    .readTimeout(120, TimeUnit.SECONDS)
+                    .build()
+            val retrofit =
+                Retrofit.Builder()
+                    .baseUrl(BuildConfig.BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(okHttpClient)
+                    .build()
             return retrofit.create(KoKomputerApiService::class.java)
         }
     }

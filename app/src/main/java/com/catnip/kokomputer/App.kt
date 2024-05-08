@@ -1,7 +1,6 @@
 package com.catnip.kokomputer
 
 import android.app.Application
-import com.catnip.kokomputer.data.source.local.database.AppDatabase
 import com.catnip.kokomputer.di.AppModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger

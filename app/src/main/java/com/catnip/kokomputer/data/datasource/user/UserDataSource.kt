@@ -8,6 +8,7 @@ Github : https://github.com/hermasyp
  **/
 interface UserDataSource {
     fun isUsingDarkMode(): Boolean
+
     fun setUsingDarkMode(isUsingDarkMode: Boolean)
 }
 

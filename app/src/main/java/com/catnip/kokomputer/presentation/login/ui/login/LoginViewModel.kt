@@ -1,23 +1,24 @@
 package com.catnip.kokomputer.presentation.login.ui.login
 
+import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import android.util.Patterns
 import com.catnip.kokomputer.R
 import com.catnip.kokomputer.presentation.login.data.LoginRepository
 import com.catnip.kokomputer.presentation.login.data.Result
 
-
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
-
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
 
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
-    fun login(username: String, password: String) {
+    fun login(
+        username: String,
+        password: String,
+    ) {
         // can be launched in a separate asynchronous job
         val result = loginRepository.login(username, password)
 
@@ -29,7 +30,10 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
         }
     }
 
-    fun loginDataChanged(username: String, password: String) {
+    fun loginDataChanged(
+        username: String,
+        password: String,
+    ) {
         if (!isUserNameValid(username)) {
             _loginForm.value = LoginFormState(usernameError = R.string.invalid_username)
         } else if (!isPasswordValid(password)) {

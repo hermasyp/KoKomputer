@@ -8,5 +8,5 @@ Github : https://github.com/hermasyp
  **/
 data class CheckoutRequestPayload(
     @SerializedName("orders")
-    val orders : List<CheckoutItemPayload>
+    val orders: List<CheckoutItemPayload>,
 )

@@ -24,7 +24,7 @@ class GridSpacingItemDecoration(spanCount: Int, spacing: Int, includeEdge: Boole
         outRect: Rect,
         view: View,
         parent: RecyclerView,
-        state: RecyclerView.State
+        state: RecyclerView.State,
     ) {
         val position = parent.getChildAdapterPosition(view) // item position
         val column = position % spanCount // item column
