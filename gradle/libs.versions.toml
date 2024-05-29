@@ -25,6 +25,7 @@ ktlint = "12.1.0"
 mockk = "1.13.10"
 coroutine-test = "1.7.2"
 turbine = "1.0.0"
+core-testing = "2.2.0"
 
 
 [libraries]
@@ -73,6 +74,7 @@ mockk-android = { group = "io.mockk", name = "mockk-android", version.ref = "moc
 mockk-agent = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 coroutine-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutine-test" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
+core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "core-testing" }
 
 
 [plugins]

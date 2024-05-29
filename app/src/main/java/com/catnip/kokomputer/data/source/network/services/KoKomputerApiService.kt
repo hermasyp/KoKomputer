@@ -1,10 +1,10 @@
 package com.catnip.kokomputer.data.source.network.services
 
 import com.catnip.kokomputer.BuildConfig
-import com.catnip.kokomputer.data.source.network.model.category.CategoriesResponse
+import com.catnip.kokomputer.data.model.Response
+import com.catnip.kokomputer.data.source.network.model.category.CategoryItemResponse
 import com.catnip.kokomputer.data.source.network.model.checkout.CheckoutRequestPayload
-import com.catnip.kokomputer.data.source.network.model.checkout.CheckoutResponse
-import com.catnip.kokomputer.data.source.network.model.products.ProductResponse
+import com.catnip.kokomputer.data.source.network.model.products.ProductItemResponse
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -20,17 +20,17 @@ Github : https://github.com/hermasyp
  **/
 interface KoKomputerApiService {
     @GET("categories")
-    suspend fun getCategories(): CategoriesResponse
+    suspend fun getCategories(): Response<List<CategoryItemResponse>?>
 
     @GET("products")
     suspend fun getProducts(
         @Query("category") category: String? = null,
-    ): ProductResponse
+    ): Response<List<ProductItemResponse>?>
 
     @POST("order")
     suspend fun createOrder(
         @Body payload: CheckoutRequestPayload,
-    ): CheckoutResponse
+    ): Response<String?>
 
     companion object {
         @JvmStatic

@@ -42,7 +42,7 @@ class ProductRepositoryImpl(
                             )
                         },
                 ),
-            ).status ?: false
+            ).status
         }
     }
 }

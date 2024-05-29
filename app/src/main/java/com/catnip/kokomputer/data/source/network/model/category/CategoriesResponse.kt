@@ -4,6 +4,7 @@ import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
 @Keep
+@Deprecated("no longer used")
 data class CategoriesResponse(
     @SerializedName("code")
     val code: Int?,

@@ -1,6 +1,5 @@
 package com.catnip.kokomputer.presentation.main
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -8,7 +7,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.catnip.kokomputer.R
 import com.catnip.kokomputer.databinding.ActivityMainBinding
-import com.catnip.kokomputer.presentation.login.ui.login.LoginActivity
 
 class MainActivity : AppCompatActivity() {
     private val isLogin = false
@@ -41,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateToLogin() {
-        startActivity(Intent(this, LoginActivity::class.java))
+        // startActivity(Intent(this, LoginActivity::class.java))
     }
 
     fun navigateToTabProfile() {

@@ -1,6 +1,7 @@
 package com.catnip.kokomputer.data.datasource.category
 
-import com.catnip.kokomputer.data.source.network.model.category.CategoriesResponse
+import com.catnip.kokomputer.data.model.Response
+import com.catnip.kokomputer.data.source.network.model.category.CategoryItemResponse
 import com.catnip.kokomputer.data.source.network.services.KoKomputerApiService
 
 /**
@@ -10,7 +11,7 @@ Github : https://github.com/hermasyp
 class CategoryApiDataSource(
     private val service: KoKomputerApiService,
 ) : CategoryDataSource {
-    override suspend fun getCategories(): CategoriesResponse {
+    override suspend fun getCategories(): Response<List<CategoryItemResponse>?> {
         return service.getCategories()
     }
 }

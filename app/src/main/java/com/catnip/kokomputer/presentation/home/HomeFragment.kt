@@ -15,7 +15,9 @@ import com.catnip.kokomputer.presentation.detailproduct.DetailProductActivity
 import com.catnip.kokomputer.presentation.home.adapter.CategoryListAdapter
 import com.catnip.kokomputer.presentation.home.adapter.ProductListAdapter
 import com.catnip.kokomputer.presentation.main.MainActivity
+import com.catnip.kokomputer.utils.ApiErrorException
 import com.catnip.kokomputer.utils.GridSpacingItemDecoration
+import com.catnip.kokomputer.utils.NoInternetException
 import com.catnip.kokomputer.utils.proceedWhen
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -116,6 +118,14 @@ class HomeFragment : Fragment() {
                 doOnSuccess = {
                     it.payload?.let { data -> bindCategoryList(data) }
                 },
+                doOnError = {
+                    if(it.exception is ApiErrorException){
+                        val errorBody = it.exception.errorResponse
+                        Log.d("Error", "getCategoryData: ${errorBody.message}")
+                    }else if(it.exception is NoInternetException){
+
+                    }
+                }
             )
         }
     }
