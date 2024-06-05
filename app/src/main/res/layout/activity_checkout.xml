@@ -41,11 +41,10 @@
         app:layout_constraintBottom_toTopOf="@+id/cv_section_order"
         app:layout_constraintTop_toBottomOf="@+id/ll_action_bar" />
 
-    <include
-        android:id="@+id/layout_state"
-        layout="@layout/layout_content_state"
+    <com.catnip.kokomputer.presentation.common.views.ContentStateView
+        android:id="@+id/csv_checkout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

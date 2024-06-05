@@ -119,13 +119,12 @@ class HomeFragment : Fragment() {
                     it.payload?.let { data -> bindCategoryList(data) }
                 },
                 doOnError = {
-                    if(it.exception is ApiErrorException){
+                    if (it.exception is ApiErrorException) {
                         val errorBody = it.exception.errorResponse
                         Log.d("Error", "getCategoryData: ${errorBody.message}")
-                    }else if(it.exception is NoInternetException){
-
+                    } else if (it.exception is NoInternetException) {
                     }
-                }
+                },
             )
         }
     }

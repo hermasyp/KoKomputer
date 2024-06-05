@@ -80,7 +80,7 @@ class CartRepositoryImpl(private val cartDataSource: CartDataSource) : CartRepos
                 ResultWrapper.Empty(it.payload)
             }.onStart {
                 emit(ResultWrapper.Loading())
-                delay(2000)
+                delay(5000)
             }
     }
 

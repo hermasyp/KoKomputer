@@ -20,7 +20,10 @@ import com.catnip.kokomputer.data.source.network.services.KoKomputerApiService
 import com.catnip.kokomputer.databinding.ActivityCheckoutBinding
 import com.catnip.kokomputer.presentation.checkout.adapter.PriceListAdapter
 import com.catnip.kokomputer.presentation.common.adapter.CartListAdapter
+import com.catnip.kokomputer.presentation.common.views.ContentState
+import com.catnip.kokomputer.presentation.common.views.ContentStateListener
 import com.catnip.kokomputer.utils.GenericViewModelFactory
+import com.catnip.kokomputer.utils.NoInternetException
 import com.catnip.kokomputer.utils.proceedWhen
 import com.catnip.kokomputer.utils.toDollarFormat
 
@@ -53,6 +56,19 @@ class CheckoutActivity : AppCompatActivity() {
         setupList()
         observeData()
         setClickListeners()
+        setupStateView()
+    }
+
+    private fun setupStateView() {
+        binding.csvCheckout.setListener(
+            object : ContentStateListener {
+                override fun onContentShow(isContentShow: Boolean) {
+                    binding.layoutContent.root.isVisible = isContentShow
+                    binding.layoutContent.rvCart.isVisible = isContentShow
+                    binding.cvSectionOrder.isVisible = isContentShow
+                }
+            },
+        )
     }
 
     private fun setClickListeners() {
@@ -78,26 +94,19 @@ class CheckoutActivity : AppCompatActivity() {
         viewModel.checkoutCart().observe(this) {
             it.proceedWhen(
                 doOnSuccess = {
-                    binding.layoutState.root.isVisible = false
-                    binding.layoutState.pbLoading.isVisible = false
-                    binding.layoutState.tvError.isVisible = false
-                    binding.layoutContent.root.isVisible = true
-                    binding.layoutContent.rvCart.isVisible = true
+                    binding.csvCheckout.setState(ContentState.SUCCESS)
                     viewModel.deleteAllCart()
                     showSuccessDialog()
                 },
                 doOnLoading = {
-                    binding.layoutState.root.isVisible = true
-                    binding.layoutState.pbLoading.isVisible = true
-                    binding.layoutState.tvError.isVisible = false
-                    binding.layoutContent.root.isVisible = false
-                    binding.layoutContent.rvCart.isVisible = false
+                    binding.csvCheckout.setState(ContentState.LOADING)
                 },
                 doOnError = {
-                    binding.layoutState.root.isVisible = true
-                    binding.layoutState.pbLoading.isVisible = false
-                    binding.layoutContent.root.isVisible = false
-                    binding.layoutContent.rvCart.isVisible = false
+                    if (it.exception is NoInternetException) {
+                        binding.csvCheckout.setState(ContentState.ERROR_NETWORK)
+                    } else {
+                        binding.csvCheckout.setState(ContentState.ERROR_GENERAL)
+                    }
                     Toast.makeText(
                         this,
                         getString(R.string.error_checkout),
@@ -116,43 +125,31 @@ class CheckoutActivity : AppCompatActivity() {
     private fun observeData() {
         viewModel.checkoutData.observe(this) { result ->
             result.proceedWhen(doOnSuccess = {
-                binding.layoutState.root.isVisible = false
-                binding.layoutState.pbLoading.isVisible = false
-                binding.layoutState.tvError.isVisible = false
-                binding.layoutContent.root.isVisible = true
-                binding.layoutContent.rvCart.isVisible = true
-                binding.cvSectionOrder.isVisible = true
+                binding.csvCheckout.setState(ContentState.SUCCESS)
                 result.payload?.let { (carts, priceItems, totalPrice) ->
                     adapter.submitData(carts)
                     binding.tvTotalPrice.text = totalPrice.toDollarFormat()
                     priceItemAdapter.submitData(priceItems)
                 }
             }, doOnLoading = {
-                binding.layoutState.root.isVisible = true
-                binding.layoutState.pbLoading.isVisible = true
-                binding.layoutState.tvError.isVisible = false
-                binding.layoutContent.root.isVisible = false
-                binding.layoutContent.rvCart.isVisible = false
-                binding.cvSectionOrder.isVisible = false
+                binding.csvCheckout.setState(ContentState.LOADING)
             }, doOnError = {
-                binding.layoutState.root.isVisible = true
-                binding.layoutState.pbLoading.isVisible = false
-                binding.layoutState.tvError.isVisible = true
-                binding.layoutState.tvError.text = result.exception?.message.orEmpty()
-                binding.layoutContent.root.isVisible = false
-                binding.layoutContent.rvCart.isVisible = false
-                binding.cvSectionOrder.isVisible = false
+                if (it.exception is NoInternetException) {
+                    binding.csvCheckout.setState(ContentState.ERROR_NETWORK)
+                } else {
+                    binding.csvCheckout.setState(
+                        ContentState.ERROR_GENERAL,
+                        message = result.exception?.message.orEmpty(),
+                    )
+                }
             }, doOnEmpty = { data ->
-                binding.layoutState.root.isVisible = true
-                binding.layoutState.pbLoading.isVisible = false
-                binding.layoutState.tvError.isVisible = true
-                binding.layoutState.tvError.text = getString(R.string.text_cart_is_empty)
+                binding.csvCheckout.setState(
+                    ContentState.EMPTY,
+                    message = getString(R.string.text_cart_is_empty),
+                )
                 data.payload?.let { (_, _, totalPrice) ->
                     binding.tvTotalPrice.text = totalPrice.toDollarFormat()
                 }
-                binding.layoutContent.root.isVisible = false
-                binding.layoutContent.rvCart.isVisible = false
-                binding.cvSectionOrder.isVisible = false
             })
         }
     }

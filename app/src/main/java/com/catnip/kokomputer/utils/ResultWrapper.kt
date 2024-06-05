@@ -103,7 +103,6 @@ fun <T> proceedFlow(block: suspend () -> T): Flow<ResultWrapper<T>> {
     }.onStart {
         emit(ResultWrapper.Loading())
     }
-
 }
 
 fun Throwable?.parseException(): Exception {
@@ -126,5 +125,5 @@ fun Throwable?.parseException(): Exception {
 }
 
 class ApiErrorException(val errorResponse: Response<*>) : Exception()
-class NoInternetException() : Exception()
 
+class NoInternetException() : Exception()

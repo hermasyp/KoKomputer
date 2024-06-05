@@ -20,6 +20,7 @@ data class Response<T>(
 enum class ApiStatus {
     @SerializedName("success")
     Success,
+
     @SerializedName("failed")
-    Failed
+    Failed,
 }
